@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a New Order</title>
+
+    <!-- order id is incremental so you don't need to fill it in the field -->
+</head>
+<body>
+    <div class="container">
+        <form th:action="@{/home/ordernext}" method="post" th:object="${order}"> 
+            <!-- thymeleaf form need to instantiate object, we haven't instantiate previously in the controller so we instantiate hre, then inject in order object in home controller --> -->
+            <div class="mb-3">
+                <label for="orderDate" class="form-label">Order Date</label>
+                <input type="date" class="form-control" th:field="*{orderDate}">
+            </div>
+            <div class="mb-3">
+                <label for="customerName" class="form-label">Customer Name</label>
+                <input type="String" class="form-control" th:field="*{customerName}">
+            </div>
+            <div class="mb-3">
+                <label for="shipAddress" class="form-label">Shipping Address</label>
+                <input type="String" class="form-control" th:field="*{shipAddress}">
+            </div>
+            <div class="mb-3">
+                <label for="notes" class="form-label">Notes</label>
+                <input type="String" class="form-control" th:field="*{notes}" rows="5">
+            </div>
+            <div class="mb-3">
+                <label for="tax" class="form-label">Tax</label>
+                <input type="number" class="form-control" th:field="*{tax}">
+            </div>
+            <input type="submit" value="Next >>" class ="btn btn-primary">
+        </form>
+    </div>
+    
+</body>
+</html>
