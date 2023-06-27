@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.servlet.http.HttpSession;
 import sg.edu.nus.iss.paf_day24workshop_jul2023.model.Order;
+import sg.edu.nus.iss.paf_day24workshop_jul2023.model.OrderDetails;
 
 @Controller
 @RequestMapping("/home")
@@ -31,11 +33,27 @@ public class HomeController {
     }
 
     @PostMapping("/ordernext")
-    public String postOrderForm(@ModelAttribute("order") Order order) {
-        System.out.println("HomeController > postOrderForm > " + order);
+    public String postOrderForm(HttpSession session, @ModelAttribute("order") Order order) {
+//System.out.println("HomeController > postOrderForm > " + order); //when the data is post, we see whether can not,
+        session.setAttribute("order", order);   //then we store it inside this order form
 
-        return "orderadd";
+        return "redirect:/home/orderdetailadd"; //then we create this page and we throw this page
+        //without redirect, we go straight to orderdetailadd, when we use redirect, we are running the below code first then bringing us to the orderdetailadd endpoint
     }
+
+    @GetMapping("/orderdetailadd")
+    public String newOrderDetailForm(Model model) {
+        OrderDetails orderDetails = new OrderDetails();
+        model.addAttribute("orderDetails", orderDetails);
+
+        return "orderdetailadd"; 
+    }
+      //a html page a response is a string, when you return a string, you return a html page
+
+      @PostMapping("nextdetails")
+      public String postOrderDetails(HttpSession session, @ModelAttribute("orderdetails") OrderDetails orderDetails, Model model){
+        System.out.println("HomeController > ")
+      }
 
 
 }
