@@ -40,7 +40,7 @@ public class OrderRepo {
 //jdbc got a lot of overloading method, so find one that works for you and stick with that
     public List<Order> findAllOrders() {
         List<Order> orders = jdbcTemplate.query(findAllSQL, BeanPropertyRowMapper.newInstance(Order.class));
-        
+
 
         if (orders.isEmpty()) {
             //throw custom exception
